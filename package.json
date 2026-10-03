@@ -1,0 +1,22 @@
+{
+  "name": "ca-vien-chien-tycoon",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "phaser": "^3.88.2"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "ag-psd": "^31.0.2",
+    "jimp": "^1.6.1",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  }
+}

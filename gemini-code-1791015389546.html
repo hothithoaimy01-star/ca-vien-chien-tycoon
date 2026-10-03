@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xe Cá Viên Chiên Miền Tây</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="game-screen">
+    <!-- Thanh hiển thị tiền & cấp độ -->
+    <div id="top-bar">
+      <div class="badge money-badge">💰 Tiền: <span id="money">0</span> VNĐ</div>
+      <div class="badge level-badge">⭐ Cổng Trường Sông Nước</div>
+    </div>
+
+    <!-- Khu vực Khách hàng & Bong bóng thoại -->
+    <div id="customer-area">
+      <div id="speech-bubble">
+        <span id="speech-text">"Chú Ba ơi, chiên cho con xiên cá viên giòn giòn, chan nhiều mắm tắc nghen!"</span>
+      </div>
+      <div id="customer-avatar">👧</div>
+    </div>
+
+    <!-- Xe hàng & Chảo chiên trung tâm -->
+    <div id="cart-area">
+      <div id="pan">
+        <div id="pan-status">🍳 Chảo dầu đang trống</div>
+      </div>
+    </div>
+
+    <!-- Bảng điều khiển thao tác -->
+    <div id="control-panel">
+      <div class="menu-title">🍢 KHAY ĐỒ CHIÊN</div>
+      <div class="action-buttons">
+        <button id="btn-cook" onclick="cook()">1. Thả Cá Viên</button>
+        <button id="btn-sauce" onclick="addSauce()" disabled>2. Rưới Mắm Tắc</button>
+        <button id="btn-serve" onclick="serve()" disabled>3. Giao Cho Học Sinh</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
