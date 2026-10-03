@@ -68,6 +68,9 @@ export class PreloadScene extends Phaser.Scene {
 
     // 5. UI Elements
     this.load.image('ui_platter', `assets/ui/platter_basket.png${v}`);
+    this.load.image('ui_pan_deep_fryer', `assets/ui/pan_deep_fryer.png${v}`);
+    this.load.image('ui_takeout_box_open', `assets/ui/takeout_box_open.png${v}`);
+    this.load.image('ui_takeout_box_closed', `assets/ui/takeout_box_closed.png${v}`);
     this.load.image('ui_menu_infographic', `assets/ui/menu_infographic.png${v}`);
   }
 

@@ -165,45 +165,39 @@ export class GameScene extends Phaser.Scene {
   private setupCookingPan(width: number, height: number): void {
     const panY = height * 0.45;
 
-    // Pan background container
-    const panBg = this.add.graphics();
-    panBg.fillStyle(0x2d3436, 0.95);
-    panBg.fillRoundedRect(16, panY - 65, width - 32, 130, 20);
-    panBg.lineStyle(4, 0x636e72, 1);
-    panBg.strokeRoundedRect(16, panY - 65, width - 32, 130, 20);
-
-    // Boiling oil surface
-    const oilBg = this.add.graphics();
-    oilBg.fillStyle(0xe17055, 0.85);
-    oilBg.fillRoundedRect(24, panY - 57, width - 48, 114, 16);
+    // Commercial Deep Fryer Graphic
+    const fryerImg = this.add.image(width / 2, panY - 8, 'ui_pan_deep_fryer');
+    fryerImg.setDisplaySize(width - 24, 150);
 
     // Pan Header Label
-    this.add.text(32, panY - 58, '🍳 CHẢO CHIÊN DẦU SÔI', {
+    this.add.text(28, panY - 68, '🍳 BẾP CHIÊN DẦU SÔI', {
       fontFamily: 'system-ui, sans-serif',
       fontSize: '11px',
-      color: '#ffeaa7',
-      fontStyle: 'bold'
+      color: '#ffd32a',
+      fontStyle: 'bold',
+      stroke: '#000000',
+      strokeThickness: 2
     });
 
-    // Create pan slot containers
+    // Create pan slot containers aligned inside the oil mesh
     this.panSlotContainers = [];
     const maxSlots = this.pan.maxSlots;
-    const slotSpacing = (width - 64) / Math.min(4, maxSlots);
+    const slotSpacing = (width - 110) / Math.min(4, maxSlots);
 
     for (let i = 0; i < maxSlots; i++) {
       const col = i % 4;
       const row = Math.floor(i / 4);
-      const slotX = 52 + col * slotSpacing;
-      const slotY = panY - 15 + row * 45;
+      const slotX = 64 + col * slotSpacing;
+      const slotY = panY - 24 + row * 44;
 
       const slotCont = this.add.container(slotX, slotY);
 
       // Slot circle
       const slotCircle = this.add.graphics();
-      slotCircle.fillStyle(0xd63031, 0.5);
-      slotCircle.fillCircle(0, 0, 24);
-      slotCircle.lineStyle(2, 0xfdcb6e, 0.8);
-      slotCircle.strokeCircle(0, 0, 24);
+      slotCircle.fillStyle(0x000000, 0.45);
+      slotCircle.fillCircle(0, 0, 22);
+      slotCircle.lineStyle(2, 0xffd32a, 0.85);
+      slotCircle.strokeCircle(0, 0, 22);
 
       // Slot image placeholder
       const slotImg = this.add.image(0, 0, 'ing_fish_ball');
@@ -214,14 +208,16 @@ export class GameScene extends Phaser.Scene {
       const progGfx = this.add.graphics();
 
       // State label
-      const stateLabel = this.add.text(0, 28, '', {
+      const stateLabel = this.add.text(0, 24, '', {
         fontFamily: 'system-ui, sans-serif',
-        fontSize: '10px',
-        fontStyle: 'bold'
+        fontSize: '9px',
+        fontStyle: 'bold',
+        stroke: '#000000',
+        strokeThickness: 2
       }).setOrigin(0.5);
 
       slotCont.add([slotCircle, slotImg, progGfx, stateLabel]);
-      slotCont.setSize(52, 52);
+      slotCont.setSize(48, 48);
       slotCont.setInteractive({ useHandCursor: true });
 
       // Click to scoop or discard
@@ -236,38 +232,41 @@ export class GameScene extends Phaser.Scene {
   private setupPlatterArea(width: number, height: number): void {
     const platterY = height * 0.62;
 
-    // Platter basket graphic
-    const platterGfx = this.add.image(width / 2, platterY, 'ui_platter');
-    platterGfx.setDisplaySize(width * 0.72, 100);
+    // Open Takeout Box graphic
+    const boxGfx = this.add.image(width / 2 - 30, platterY, 'ui_takeout_box_open');
+    boxGfx.setDisplaySize(180, 110);
+    boxGfx.setName('boxGfx');
 
-    this.platterContainer = this.add.container(width / 2, platterY);
+    this.platterContainer = this.add.container(width / 2 - 30, platterY);
 
     // Label
-    this.add.text(26, platterY - 50, '🧺 MẸT TRE ĐÓNG GÓI', {
+    this.add.text(26, platterY - 54, '📦 HỘP MANG ĐI (ĐÓNG GÓI)', {
       fontFamily: 'system-ui, sans-serif',
-      fontSize: '12px',
+      fontSize: '11px',
       color: '#ffeaa7',
-      fontStyle: 'bold'
+      fontStyle: 'bold',
+      stroke: '#000000',
+      strokeThickness: 2
     });
 
-    // SERVE BUTTON (Big golden button)
-    const serveBtn = this.add.container(width - 80, platterY);
+    // SERVE / PACK BUTTON
+    const serveBtn = this.add.container(width - 70, platterY);
     const sBg = this.add.graphics();
     sBg.fillGradientStyle(0x00b894, 0x00b894, 0x00cec9, 0x00cec9, 1, 1, 1, 1);
-    sBg.fillRoundedRect(-58, -26, 116, 52, 14);
+    sBg.fillRoundedRect(-52, -26, 104, 52, 14);
     sBg.lineStyle(3, 0xffffff, 1);
-    sBg.strokeRoundedRect(-58, -26, 116, 52, 14);
+    sBg.strokeRoundedRect(-52, -26, 104, 52, 14);
 
-    const sLabel = this.add.text(0, 0, '🍢 GIAO\nMÓN', {
+    const sLabel = this.add.text(0, 0, '📦 ĐÓNG HỘP\n& GIAO', {
       fontFamily: 'system-ui, sans-serif',
-      fontSize: '13px',
+      fontSize: '11px',
       color: '#ffffff',
       fontStyle: 'bold',
       align: 'center'
     }).setOrigin(0.5);
 
     serveBtn.add([sBg, sLabel]);
-    serveBtn.setSize(116, 52);
+    serveBtn.setSize(104, 52);
     serveBtn.setInteractive({ useHandCursor: true });
 
     this.tweens.add({
@@ -285,7 +284,7 @@ export class GameScene extends Phaser.Scene {
     });
 
     // CLEAR / TRASH BUTTON
-    const trashBtn = this.add.text(32, platterY + 22, '🗑️ Đổ mẹt', {
+    const trashBtn = this.add.text(26, platterY + 28, '🗑️ Đổ hộp', {
       fontFamily: 'system-ui, sans-serif',
       fontSize: '11px',
       color: '#ff7675'
@@ -411,10 +410,10 @@ export class GameScene extends Phaser.Scene {
         this.showFloatingText(this.cameras.main.width / 2, this.cameras.main.height * 0.45, 'Chảo đã đầy!', '#e74c3c');
       }
     } else {
-      // Direct sauce or topping onto platter
+      // Direct sauce or topping into the takeout box
       this.plate.addItem(ing.id, 'normal');
       this.updatePlatterVisuals();
-      this.showFloatingText(this.cameras.main.width / 2, this.cameras.main.height * 0.62, `+ ${ing.name}`, '#f1c40f');
+      this.showFloatingText(this.cameras.main.width / 2 - 30, this.cameras.main.height * 0.62, `+ ${ing.name}`, '#f1c40f');
     }
   }
 
@@ -437,7 +436,7 @@ export class GameScene extends Phaser.Scene {
         this.updatePlatterVisuals();
 
         if (quality === 'perfect') {
-          this.showFloatingText(this.cameras.main.width / 2, this.cameras.main.height * 0.6, '⭐ PERFECT! +Thơm giòn', '#f1c40f');
+          this.showFloatingText(this.cameras.main.width / 2 - 30, this.cameras.main.height * 0.6, '⭐ PERFECT! +Vào Hộp', '#f1c40f');
         }
       }
     }
@@ -447,19 +446,19 @@ export class GameScene extends Phaser.Scene {
     this.platterContainer.removeAll(true);
 
     const items = this.plate.items;
-    const startX = -70;
-    const spacing = 35;
+    const startX = -45;
+    const spacing = 28;
 
     items.forEach((it, idx) => {
       if (idx >= 6) return;
       let texKey = `ing_${it.id}`;
       if (!this.textures.exists(texKey)) texKey = 'ing_fish_ball';
 
-      const img = this.add.image(startX + idx * spacing, 0, texKey);
-      img.setDisplaySize(34, 34);
+      const img = this.add.image(startX + idx * spacing, 2, texKey);
+      img.setDisplaySize(30, 30);
 
       if (it.quality === 'perfect') {
-        const star = this.add.text(startX + idx * spacing + 10, -12, '⭐', { fontSize: '12px' });
+        const star = this.add.text(startX + idx * spacing + 8, -12, '⭐', { fontSize: '11px' });
         this.platterContainer.add(star);
       }
 
@@ -471,20 +470,20 @@ export class GameScene extends Phaser.Scene {
     this.plate.sauces.forEach((s) => {
       const sTex = s;
       if (this.textures.exists(sTex)) {
-        const sImg = this.add.image(60 + sauceOffset, -5, sTex);
-        sImg.setDisplaySize(24, 24);
+        const sImg = this.add.image(35 + sauceOffset, -4, sTex);
+        sImg.setDisplaySize(20, 20);
         this.platterContainer.add(sImg);
-        sauceOffset += 18;
+        sauceOffset += 16;
       }
     });
 
     // Toppings display
     this.plate.toppings.forEach((t) => {
-      const tImg = this.add.image(60 + sauceOffset, 8, `ing_${t}`);
+      const tImg = this.add.image(35 + sauceOffset, 8, `ing_${t}`);
       if (this.textures.exists(`ing_${t}`)) {
-        tImg.setDisplaySize(22, 22);
+        tImg.setDisplaySize(18, 18);
         this.platterContainer.add(tImg);
-        sauceOffset += 18;
+        sauceOffset += 16;
       }
     });
   }
@@ -497,26 +496,46 @@ export class GameScene extends Phaser.Scene {
     }
 
     if (this.plate.isEmpty()) {
-      this.showFloatingText(this.cameras.main.width / 2, this.cameras.main.height * 0.6, 'Mẹt đồ ăn đang trống!', '#e74c3c');
+      this.showFloatingText(this.cameras.main.width / 2, this.cameras.main.height * 0.6, 'Hộp mang đi đang trống!', '#e74c3c');
       return;
     }
 
     const result = this.economySystem.evaluateServing(this.plate, frontCustomer);
 
     if (result.success) {
-      frontCustomer.onServedHappy();
-      this.customerSystem.removeFrontCustomer(true);
-      this.plate.clear();
-      this.updatePlatterVisuals();
+      // 1. Pack into closed takeout box animation
+      const startX = this.cameras.main.width / 2 - 30;
+      const startY = this.cameras.main.height * 0.62;
 
-      // Show Earned Banner
-      this.showFloatingMoney(frontCustomer.x, frontCustomer.y - 40, result.totalEarned, result.tip, result.isPerfect);
-      this.updateHUD();
+      const flyingBox = this.add.image(startX, startY, 'ui_takeout_box_closed');
+      flyingBox.setDisplaySize(72, 68);
 
-      // Check if Day completed
-      if (this.customerSystem.isDayFinished()) {
-        this.time.delayedCall(1500, () => this.handleDayEnd());
-      }
+      // Arc flight animation directly into customer hands
+      this.tweens.add({
+        targets: flyingBox,
+        x: frontCustomer.x,
+        y: frontCustomer.y - 15,
+        scaleX: 0.7,
+        scaleY: 0.7,
+        duration: 550,
+        ease: 'Quad.easeInOut',
+        onComplete: () => {
+          flyingBox.destroy();
+          frontCustomer.onServedHappy();
+          this.customerSystem.removeFrontCustomer(true);
+          this.plate.clear();
+          this.updatePlatterVisuals();
+
+          // Show Earned Banner
+          this.showFloatingMoney(frontCustomer.x, frontCustomer.y - 40, result.totalEarned, result.tip, result.isPerfect);
+          this.updateHUD();
+
+          // Check if Day completed
+          if (this.customerSystem.isDayFinished()) {
+            this.time.delayedCall(1500, () => this.handleDayEnd());
+          }
+        }
+      });
     } else {
       this.showFloatingText(frontCustomer.x, frontCustomer.y - 30, result.message, '#e74c3c');
     }
